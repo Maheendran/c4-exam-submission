@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News App</title>
+    <style>
+      a{
+        text-decoration: none;
+        font-size: 20px;
+        color: aliceblue;
+        font-family: sans-serif;
+      }
+      #navbar{
+        width: 100%;
+        height: 50px;
+        border: 1px solid;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: teal;
+      }
+      #navbar input{
+        width: 900px;
+        height: 30px;
+        border-radius: 10px;
+        border: 1px solid;
+      }
+      #sidebar h3{
+        width: 150px;
+        height: 30px;
+        border: 1px solid;
+        background-color: teal;
+      }
+      #result img{
+        width: 300px;
+        height: 300px;
+        border: 1px solid;
+        padding: 10px;
+        background-color: teal;
+      }
+      #container{
+        display: flex;
+            }
+#sidebar{
+  width: 200px;
+  height: 200px;
+  border: 0px solid;
+}
+#result div{
+  width: 100%;
+  border: 1px solid;
+}
+#result h3{
+  margin-left: 300px;
+ 
+}
+    </style>
+  </head>
+  <body>
+    <!-- Give Navbar with id "navbar"  -->
+    <!-- Navbar will have input with id search_input and a link to home page i.e. index.html -->
+    <!-- Sidebar will have id "sidebar"  -->
+    <!-- Give link to top headlines of countries in sidebar with id as their country codes 
+    india :- in
+    china :- ch
+    usa :- us
+    uk : uk
+    Newzeland :- nz -->
+
+    <!-- Append results inside div with id "results"  -->
+    <!-- News divs will have class "news"  -->
+    <div id="navbar">
+      
+    </div> 
+    <div id="container">
+
+    <div id="sidebar">
+      <h2>countries</h2>
+      <h3 id="in">India</h3>
+           <h3 id="us"> Usa</h3>
+           <h3 id="ch">China</h3>
+           <h3 id="uk">UK</h3>
+           <h3 id="nz">New Zealand</h3>
+    </div>
+      
+        
+          <div id="result">
+            <div class="news" id="news"></div>
+          </div>
+  </div>
+    
+  </body>
+</html>
+<script type="module" >
+  
+
+  let main=document.getElementById("news")
+ 
+import navbar from "./components/navbar.js"
+document.getElementById("navbar").innerHTML=navbar();
+import {api,append} from "./scripts/main.js";
+let search=(e)=>{
+  if(e.key=="Enter"){
+    let query=document.getElementById("search_input").value;
+
+    localStorage.setItem("news",query)
+    window.location.href="search.html"
+  }
+}
+document.getElementById("search_input").addEventListener("keydown",search)
+let res=await api(`https://masai-mock-api.herokuapp.com/news/top-headlines?country=in`)
+  console.log(res)
+  //.........................
+  
+ 
+
+append(res,main)
+</script>
+``
